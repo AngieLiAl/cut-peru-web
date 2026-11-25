@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colores tomados del logo de la CUT PERÚ */
+  --color-tinta: #2a1a6e;
+  --color-tinta-suave: #3d2c8c;
+  --color-tinta-profunda: #160c45;
+  --color-violeta: #5b3fc4;
+  --color-rojo: #cf2118;
+  --color-rojo-oscuro: #a81a13;
+  --color-niebla: #ece8f8;
+  --color-linea: #d8d2ec;
+  --color-texto: #2f2b45;
+  --color-tenue: #565170;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-titulo: var(--font-bricolage), var(--font-inter), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* En la capa base para que las utilidades de Tailwind puedan sobrescribirlos */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-niebla);
+    color: var(--color-texto);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-titulo);
+    color: var(--color-tinta);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-violeta);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.fondo-indigo {
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgb(207 33 24 / 0.45), transparent 65%),
+    radial-gradient(50rem 30rem at 0% 110%, rgb(91 63 196 / 0.7), transparent 65%),
+    var(--color-tinta-profunda);
+}
+
+/* Luz que sigue al cursor sobre la portada */
+.luz-cursor {
+  position: relative;
+  isolation: isolate;
+}
+
+.luz-cursor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(26rem circle at var(--luz-x, 70%) var(--luz-y, 30%), rgb(255 255 255 / 0.1), transparent 70%);
+}
+
+/* Mapa de puntos del Perú */
+.punto-luz {
+  animation: destello 5s ease-in-out infinite;
+}
+
+@keyframes destello {
+  50% {
+    opacity: 1;
+  }
+}
+
+.pulso-lima {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulso 2.6s ease-out infinite;
+}
+
+@keyframes pulso {
+  to {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+}
+
+.aparece {
+  animation: aparecer 0.35s ease-out both;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
 }
