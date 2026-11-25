@@ -18,7 +18,7 @@ const columnas = [
       { href: '/estatuto', texto: 'Estatuto explicado' },
       { href: '/red-nacional', texto: 'Red Nacional' },
       { href: '/observatorio', texto: 'Observatorio Laboral' },
-      { href: '/ayuda', texto: 'Asistente' },
+      { href: '/ayuda', texto: 'Ayuda y orientación' },
       { href: '/privacidad', texto: 'Política de Privacidad' },
     ],
   },

@@ -9,6 +9,7 @@
   --color-rojo: #cf2118;
   --color-rojo-oscuro: #a81a13;
   --color-niebla: #ece8f8;
+  --color-fondo: #f4f2fa;
   --color-linea: #d8d2ec;
   --color-texto: #2f2b45;
   --color-tenue: #565170;
@@ -21,11 +22,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 8rem;
   }
 
   body {
-    background-color: var(--color-niebla);
+    background-color: var(--color-fondo);
     color: var(--color-texto);
   }
 
@@ -46,8 +47,8 @@
 
 .fondo-indigo {
   background:
-    radial-gradient(60rem 30rem at 85% -10%, rgb(207 33 24 / 0.45), transparent 65%),
-    radial-gradient(50rem 30rem at 0% 110%, rgb(91 63 196 / 0.7), transparent 65%),
+    radial-gradient(60rem 30rem at 90% -20%, rgb(207 33 24 / 0.28), transparent 65%),
+    radial-gradient(50rem 30rem at 0% 120%, rgb(91 63 196 / 0.55), transparent 65%),
     var(--color-tinta-profunda);
 }
 

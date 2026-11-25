@@ -1,6 +1,10 @@
 import GuardiaDemo from '../../_componentes/GuardiaDemo';
 import MenuIntranet from '../../_componentes/MenuIntranet';
 
+// Las páginas de la intranet se muestran solo después de comprobar la sesión en el navegador,
+// así que no pueden tener una vista instantánea prerenderizada.
+export const instant = false;
+
 export default function LayoutPortal({
   children,
 }: Readonly<{

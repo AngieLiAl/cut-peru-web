@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { calcularDelegados, pagosIniciales, progresoInicial, ticketsIniciales, useAlmacen, type Pago, type Progreso, type Ticket } from '../../../_datos/almacen';
 import { cursos } from '../../../_datos/cursos';
+import Icono, { type NombreIcono } from '../../../_componentes/Icono';
 
 const afiliadosDemo = 120;
 
@@ -19,10 +20,10 @@ export default function Dashboard() {
   const completadas = Object.values(progreso).reduce((total, lista) => total + lista.length, 0);
   const delegados = calcularDelegados(Number(afiliados) || 0);
 
-  const tarjetas = [
-    { titulo: 'Cuotas Sindicales', valor: 'Al día', detalle: `Última declaración: ${ultimoPago.periodo}. Padrón de ${afiliadosDemo} afiliados.`, accion: 'Declarar nuevo pago', href: '/intranet/pagos', fondo: 'bg-linear-to-br from-emerald-700 to-teal-800' },
-    { titulo: 'Tickets de Asesoría', valor: `${abiertos.length} en proceso`, detalle: abiertos[0]?.asunto ?? 'No tienes solicitudes abiertas.', accion: 'Ver mis tickets', href: '/intranet/tickets', fondo: 'bg-linear-to-br from-rojo to-rojo-oscuro' },
-    { titulo: 'Escuela Sindical', valor: `${completadas} de ${lecciones} lecciones`, detalle: 'Continúa tu formación en el Campus Virtual.', accion: 'Ir al Campus', href: '/intranet/campus', fondo: 'bg-linear-to-br from-tinta to-violeta' },
+  const tarjetas: { titulo: string; valor: string; detalle: string; accion: string; href: string; icono: NombreIcono; estado?: string }[] = [
+    { titulo: 'Cuotas Sindicales', valor: 'Al día', detalle: `Última declaración: ${ultimoPago.periodo}. Padrón de ${afiliadosDemo} afiliados.`, accion: 'Declarar nuevo pago', href: '/intranet/pagos', icono: 'moneda', estado: 'Cumplido' },
+    { titulo: 'Tickets de Asesoría', valor: `${abiertos.length} en proceso`, detalle: abiertos[0]?.asunto ?? 'No tienes solicitudes abiertas.', accion: 'Ver mis tickets', href: '/intranet/tickets', icono: 'mensaje' },
+    { titulo: 'Escuela Sindical', valor: `${completadas} de ${lecciones} lecciones`, detalle: 'Continúa tu formación en el Campus Virtual.', accion: 'Ir al Campus', href: '/intranet/campus', icono: 'libro' },
   ];
 
   return (
@@ -40,11 +41,19 @@ export default function Dashboard() {
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {tarjetas.map((tarjeta) => (
-          <div key={tarjeta.titulo} className={`flex flex-col rounded-3xl p-6 text-white ${tarjeta.fondo}`}>
-            <p className="text-sm font-medium text-white/80">{tarjeta.titulo}</p>
-            <p className="mt-1 font-titulo text-2xl font-semibold">{tarjeta.valor}</p>
-            <p className="mt-2 grow text-sm leading-relaxed text-white/85">{tarjeta.detalle}</p>
-            <Link href={tarjeta.href} className="mt-5 w-fit rounded-full bg-white px-4 py-2 text-sm font-semibold text-tinta">{tarjeta.accion}</Link>
+          <div key={tarjeta.titulo} className="flex flex-col rounded-3xl bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-3">
+              <span className="flex size-11 items-center justify-center rounded-xl bg-niebla text-tinta">
+                <Icono nombre={tarjeta.icono} />
+              </span>
+              {tarjeta.estado && <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800">{tarjeta.estado}</span>}
+            </div>
+            <p className="mt-4 text-sm font-medium text-tenue">{tarjeta.titulo}</p>
+            <p className="font-titulo text-2xl font-semibold text-tinta">{tarjeta.valor}</p>
+            <p className="mt-2 grow text-sm leading-relaxed text-tenue">{tarjeta.detalle}</p>
+            <Link href={tarjeta.href} className="group mt-5 flex w-fit items-center gap-1.5 text-sm font-semibold text-rojo-oscuro">
+              {tarjeta.accion} <Icono nombre="flecha" className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </div>
         ))}
       </div>

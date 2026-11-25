@@ -128,7 +128,7 @@ export default function SelectorPerfil() {
             tabIndex={indice === activo ? 0 : -1}
             onClick={() => setActivo(indice)}
             onKeyDown={(evento) => moverConTeclado(evento, indice)}
-            className="rounded-full bg-white px-4 py-2.5 text-sm font-medium text-tinta shadow-sm transition-colors hover:bg-tinta hover:text-white aria-selected:bg-rojo aria-selected:text-white"
+            className="rounded-full bg-white px-4 py-2.5 text-sm font-medium text-tinta shadow-sm ring-1 ring-linea transition-colors hover:ring-tinta aria-selected:bg-tinta aria-selected:text-white aria-selected:ring-tinta"
           >
             {opcion.etiqueta}
           </button>
